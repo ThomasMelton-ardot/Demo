@@ -4,6 +4,7 @@ import os.path
 import datetime
 import sys
 
+TESTING
 class Logger (object):
     def __init__(self, fileName, printingEnabled=True, startingMessage=None):
         logsFolderPath = r"\\san1\SIR\SystemInformation\System Information Group\GIS\SIRgisAdmin\OffHoursLogs"

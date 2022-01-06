@@ -4,7 +4,7 @@ import os.path
 import datetime
 import sys
 
-TESTING
+# TESTING
 class Logger (object):
     def __init__(self, fileName, printingEnabled=True, startingMessage=None):
         logsFolderPath = r"\\san1\SIR\SystemInformation\System Information Group\GIS\SIRgisAdmin\OffHoursLogs"
@@ -37,7 +37,7 @@ class Logger (object):
         statement = "{ident}{timestamp} - {comment} {header}".format(timestamp = timestampTxt, comment = comment, ident=indentTxt, header=headerText)   
         self.errorLog.write(statement + "\n")
         if self.printingEnabled:
-            print statement
+            print (statement)
             
     def close(self):
         self.errorLog.close()
@@ -295,7 +295,7 @@ def updateRoadInventory(roadInventoryTableUpdate=False, nhsUpdate=True, aphnUpda
             
             logger.log("Deleting in memory data product", indent=True)
             arcpy.Delete_management("in_memory\RoadInv_FC")
-            print datetime.datetime.now()
+            print (datetime.datetime.now())
             
             updateDate("Road Inventory Feature Class")
             
@@ -368,10 +368,10 @@ def updateRoadInventory(roadInventoryTableUpdate=False, nhsUpdate=True, aphnUpda
             
             
             logger.log("Turning route overlay into table view", indent=True)
-            print "intersect path"
-            print intersectPath
-            print "intersect view"
-            print intersectView
+            print ("intersect path")
+            print (intersectPath)
+            print ("intersect view")
+            print (intersectView)
             arcpy.MakeTableView_management(intersectPath, intersectView)
             
             logger.log("Adding ID indexies before join is applied", indent=True)   
@@ -407,7 +407,7 @@ def updateRoadInventory(roadInventoryTableUpdate=False, nhsUpdate=True, aphnUpda
             insertCur = arcpy.da.InsertCursor(matchErrorTable, ["AH_RoadID", "AH_BLM", "AH_ELM" , "AH_BLM_Suggest", "AH_ELM_Suggest", "BLM_DIFF", "ELM_DIFF", "RouteSign", "ERROR"])
             
             for field in arcpy.ListFields(outputView):
-                print "{} | {} | {}".format(field.name, field.type, field.length)
+                print ("{} | {} | {}".format(field.name, field.type, field.length))
             
             logger.log("Adding features to match table", indent=True)
             with arcpy.da.SearchCursor(outputView, ["RoadInv.AH_RoadID", "RoadInv.AH_BLM" , "RoadInv.AH_ELM", "{}.AH_BLM".format(intersectView), "{}.AH_ELM".format(intersectView), "RoadInv.RouteSign", "RoadInv.ID"], where_clause=" RoadInv.ID <> '' AND {}.ARNOLD_dissolveID <> '' ".format(intersectView)) as overshootCur:
